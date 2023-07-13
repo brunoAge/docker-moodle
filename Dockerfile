@@ -12,6 +12,14 @@ ENV MOODLE_HOST=http://localhost
 ENV MOODLEDATA_PATH=/var/www/moodledata
 ENV MOODLE_USERNAME=admin
 
+ENV MOODLE_ENABLE_SESSION_MEMCACHED=false
+ENV MOODLE_SESSION_HANDLER_CLASS=\core\session\memcached
+ENV MOODLE_SESSION_MEMCACHED_SAVE_PATH=127.0.0.1:11211
+ENV MOODLE_SESSION_MEMCACHED_PREFIX=memc.sess.key.
+ENV MOODLE_SESSION_MEMCACHED_ACQUIRE_LOCK_TIMEOUT=120
+ENV MOODLE_SESSION_MEMCACHED_LOCK_EXPIRE=7200
+ENV MOODLE_SESSION_MEMCACHED_LOCK_RETRY_SLEEP=150
+
 # Diretório de trabalho
 WORKDIR /var/www
 
@@ -22,8 +30,10 @@ WORKDIR /var/www
 RUN apt update -y && \
     apt upgrade -y && \
     apt install unzip wget git curl -y && \
-    apt install -y libonig-dev libcurl4-openssl-dev libxml2-dev libzip-dev libpng-dev && \
-    docker-php-ext-install iconv mbstring curl tokenizer xmlrpc soap ctype zip gd simplexml dom xml intl json mysqli && \
+    apt install -y libonig-dev libcurl4-openssl-dev libxml2-dev libzip-dev libpng-dev libmemcached-dev && \
+    docker-php-ext-install iconv mbstring curl tokenizer xmlrpc soap ctype zip gd simplexml dom xml intl json mysqli memcached && \
+    printf "\n" | pecl install memcached  && \
+    docker-php-ext-enable memcached  && \
     rm -rf /var/lib/apt/lists/*
 
 # # Install Moodle
