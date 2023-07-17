@@ -21,7 +21,7 @@ $CFG->dboptions = array (
 if (getenv('MOODLE_SLAVE_DATABASE_HOST')) {
   $CFG->dboptions['readonly'] = [
     'instance' => getenv('MOODLE_SLAVE_DATABASE_HOST')
-  ]
+  ];
 }
 
 $CFG->wwwroot   = getenv('MOODLE_HOST');
