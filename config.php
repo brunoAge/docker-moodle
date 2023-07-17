@@ -18,6 +18,12 @@ $CFG->dboptions = array (
   'dbcollation' => 'utf8mb4_unicode_ci',
 );
 
+if (getenv('MOODLE_SLAVE_DATABASE_HOST')) {
+  $CFG->dboptions['readonly'] = [
+    'instance' => getenv('MOODLE_SLAVE_DATABASE_HOST')
+  ]
+}
+
 $CFG->wwwroot   = getenv('MOODLE_HOST');
 $CFG->dataroot  = getenv('MOODLEDATA_PATH');
 $CFG->admin     = getenv('MOODLE_USERNAME');
