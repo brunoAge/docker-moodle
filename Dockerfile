@@ -32,7 +32,7 @@ RUN apt update -y && \
     apt upgrade -y && \
     apt install unzip wget git curl -y && \
     apt install -y libonig-dev libcurl4-openssl-dev libxml2-dev libzip-dev libpng-dev libmemcached-dev && \
-    docker-php-ext-install iconv mbstring curl tokenizer xmlrpc soap ctype zip gd simplexml dom xml intl json mysqli && \
+    docker-php-ext-install iconv mbstring curl tokenizer xmlrpc soap ctype zip gd simplexml dom xml intl json mysqli opcache && \
     printf "\n" | pecl install memcached  && \
     docker-php-ext-enable memcached  && \
     printf "\n" | pecl install redis  && \
