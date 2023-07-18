@@ -35,6 +35,8 @@ RUN apt update -y && \
     docker-php-ext-install iconv mbstring curl tokenizer xmlrpc soap ctype zip gd simplexml dom xml intl json mysqli && \
     printf "\n" | pecl install memcached  && \
     docker-php-ext-enable memcached  && \
+    printf "\n" | pecl install redis  && \
+    docker-php-ext-enable redis  && \
     rm -rf /var/lib/apt/lists/*
 
 # # Install Moodle
